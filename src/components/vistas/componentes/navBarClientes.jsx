@@ -57,7 +57,7 @@ export default function NavBarClientes() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/crear_usuario",
+        `${URL}/crear_usuario`,
         {
           nombre: cliente.nombre,
           apellido: cliente.apellido,

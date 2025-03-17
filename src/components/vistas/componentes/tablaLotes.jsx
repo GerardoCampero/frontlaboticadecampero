@@ -264,7 +264,7 @@ export default function TablaLotes({ lotes }) {
 
 import { Dialog, Portal, Stack, Input} from "@chakra-ui/react"
 import { Field } from "@/components/ui/field";
-import { usePageContext } from '@/components/context/context';
+
 
 
 

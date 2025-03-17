@@ -12,7 +12,7 @@ import axios from "axios";
 import { usePageContext } from "@/components/context/context";
 
 export default function NavBarClientes() {
-  const { setClientes, handleConsultarTodo } = usePageContext()
+  const { setClientes, handleConsultarTodo, URL } = usePageContext()
   const ref = useRef(null);
   const [cliente, setCliente] = useState({
     nombre: '',
@@ -29,7 +29,7 @@ export default function NavBarClientes() {
  
 
     try {
-      const busqueda = await axios.get(`http://127.0.0.1:8000/buscar_usuario?valor=${valor}`)
+      const busqueda = await axios.get(`${URL}/buscar_usuario?valor=${valor}`)
       setClientes(busqueda.data)
     } catch (error) {
       toast.error(error.response.data.detail);

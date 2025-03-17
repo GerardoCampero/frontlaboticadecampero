@@ -13,14 +13,16 @@ import {
 import axios from 'axios';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { usePageContext } from '@/components/context/context';
 
 
 export default function TablaLotes({ lotes }) {
   const [currentPage, setCurrentPage] = useState(1); // Página actual
   const [paginatedLotes, setPaginatedLotes] = useState([]);
   const pageSize = 10; // Cantidad de elementos por página
+  const { URL } = usePageContext()
 
-  console.log(lotes, 'Lotes')
+ 
 
   // Función para formatear números con separador de miles
   const formatNumber = (number) => {
@@ -45,11 +47,12 @@ export default function TablaLotes({ lotes }) {
 
   const handleEliminarLote = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/eliminar_lote/${id}`);
+      await axios.delete(`${URL}/eliminar_lote/${id}`);
       toast.success('Se eliminó el lote seleccionado');
       // Filtrar el lote eliminado de los lotes paginados
       const updatedLotes = paginatedLotes.filter((lote) => lote.id !== id);
       setPaginatedLotes(updatedLotes);
+      window.location.reload();
     } catch (error) {
       toast.error('Error al eliminar el lote');
     }
@@ -266,9 +269,9 @@ import { usePageContext } from '@/components/context/context';
 
 
 const EditarLote = ({ id }) => {
-    const { handleConsultarTodo } = usePageContext()
+    const { handleConsultarTodo, URL } = usePageContext()
 
-    console.log(id, 'id')
+   
 
  
     const [lote, setLote] = useState({
@@ -306,7 +309,7 @@ const EditarLote = ({ id }) => {
    
         try {
           const response = await axios.put(
-            `http://127.0.0.1:8000/editar_lote/${id}`, loteEditado,
+            `${URL}/editar_lote/${id}`, loteEditado,
             {
               headers: {
                 accept: "application/json",
@@ -318,6 +321,7 @@ const EditarLote = ({ id }) => {
           // Mostrar un toast de éxito solo después de que la solicitud haya terminado
           toast.success('Lote Editado');
           handleConsultarTodo()
+          window.location.reload();
         } catch (error) {
           // Mostrar un toast de error si algo falla
           toast.error(`Error al editar el Lote: ${error.message}`);

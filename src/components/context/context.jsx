@@ -26,7 +26,7 @@ export default function PageContext({ children }) {
 
     useEffect(() => {
         // Solo realizar la consulta si la URL está definida
-        console.log(URL,'URL')
+        
         if (URL) {
             const consultarTodo = async () => {
                 try {
@@ -63,9 +63,10 @@ export default function PageContext({ children }) {
         setCliente,
         lote,
         setLote,
+        URL,
     }
 
-    console.log(clientes, 'context')
+    
 
     return (
         <store.Provider value={contexValue}>

@@ -7,6 +7,7 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import html2canvas from "html2canvas"; // Importar html2canvas
+import { usePageContext } from "@/components/context/context";
 
 // Usar Intl.NumberFormat para formatear el número con separadores de miles
 const formatNumber = (num) => {
@@ -18,10 +19,11 @@ export default function CardCliente({ id }) {
     const [selectedDate, setSelectedDate] = useState(null);
     const [lotes, setLotes] = useState([]);
     const [sumaTotal, setSumaTotal] = useState(0);
+    const { URL } = usePageContext()
 
     useEffect(() => {
         const consultaUsuario = async () => {
-            const data = await axios.get(`http://127.0.0.1:8000/consultar_usuarios/${id}`);
+            const data = await axios.get(`${URL}/consultar_usuarios/${id}`);
             setCliente(data.data);
         };
 
@@ -44,7 +46,7 @@ export default function CardCliente({ id }) {
         const fechaLote = formatDate(date);
 
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/buscar_lotes`, {
+            const response = await axios.get(`${URL}/buscar_lotes`, {
                 params: {
                     fecha: fechaLote,
                     usuario_id: id,

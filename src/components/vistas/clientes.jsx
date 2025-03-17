@@ -20,12 +20,12 @@ import { useState } from "react";
 
 
 export default function VistaClientes() {
-    const { clientes, handleConsultarTodo } = usePageContext()
+    const { clientes, handleConsultarTodo, URL } = usePageContext()
 
     const deleteUsuario = async (id) => {
         
         try{
-            await  axios.delete(`http://127.0.0.1:8000/eliminar_usuario/${id}`)
+            await  axios.delete(`${URL}/eliminar_usuario/${id}`)
             toast.success('Se eliminó el usuario')
             handleConsultarTodo()
 
@@ -206,7 +206,7 @@ import { Field } from "@/components/ui/field";
 import Link from "next/link";
 
 const Demo = (id) => {
-    const { handleConsultarTodo } = usePageContext()
+    const { handleConsultarTodo, URL } = usePageContext()
 
  
     const [cliente, setCliente] = useState({
@@ -244,7 +244,7 @@ const Demo = (id) => {
    
         try {
           const response = await axios.put(
-            `http://127.0.0.1:8000/editar_usuario/${id.id}`, clienteEditado,
+            `${URL}/editar_usuario/${id.id}`, clienteEditado,
             {
               headers: {
                 accept: "application/json",

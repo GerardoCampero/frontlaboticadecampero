@@ -18,9 +18,11 @@ import { useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import { usePageContext } from "@/components/context/context";
 
 export default function NavBarLotes() {
   const ref = useRef(null);
+  const { URL } =  usePageContext()
   const [lote, setLote] = useState({
     usuario_id: 0, // Esto puede venir de algún lado o ser un campo dinámico
     lote: 0,
@@ -41,7 +43,7 @@ export default function NavBarLotes() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/crear_lote",
+        `${URL}/crear_lote`,
         lote,
         {
           headers: {

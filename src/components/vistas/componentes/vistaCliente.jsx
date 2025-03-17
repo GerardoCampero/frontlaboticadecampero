@@ -44,6 +44,7 @@ export default function CardCliente({ id }) {
 
         // Convertir la fecha seleccionada al formato "dd/MM/yyyy"
         const fechaLote = formatDate(date);
+        console.log(URL, 'URL', fechaLote,'FechaLote', id, 'id')
 
         try {
             const response = await axios.get(`${URL}/buscar_lotes`, {

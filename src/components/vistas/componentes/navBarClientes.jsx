@@ -127,7 +127,7 @@ export default function NavBarClientes() {
                 <Input name="instagram" value={cliente.instagram} onChange={handleInputChange} placeholder="Instagram" />
               </Field>
               <Field label="Telefono:">
-                <Input name="telefono" value={cliente.telefono} onChange={handleInputChange} placeholder="Instagram" />
+                <Input name="telefono" value={cliente.telefono} onChange={handleInputChange} placeholder="Telefono" />
               </Field>
               {/* <SwitchRoot checked={cliente.admin} onCheckedChange={handleSwitchChange}>
                 <SwitchHiddenInput />

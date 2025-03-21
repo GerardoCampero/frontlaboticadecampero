@@ -260,6 +260,7 @@ const Demo = (id) => {
       apellido: '',
       facebook: '',
       instagram:'',
+      telefono: null,
     });
 
 
@@ -351,6 +352,12 @@ const Demo = (id) => {
                     value={cliente.instagram} 
                     onChange={handleInputChange} 
                     placeholder="Instagram" />
+                  </Field>
+                  <Field label="Telefono:">
+                    <Input name="telefono" 
+                    value={cliente.telefono} 
+                    onChange={handleInputChange} 
+                    placeholder="Telefono" />
                   </Field>
                 </Stack>
             </Dialog.Body>

@@ -48,13 +48,17 @@ export default function TablaLotes({ lotes }) {
   const handleEliminarLote = async (id) => {
     try {
       await axios.delete(`${URL}/eliminar_lote/${id}`);
-      toast.success('Se eliminó el lote seleccionado');
+      toast.success('Se eliminó el lote seleccionado', {
+        position: "bottom-center",
+      });
       // Filtrar el lote eliminado de los lotes paginados
       const updatedLotes = paginatedLotes?.filter((lote) => lote.id !== id);
       setPaginatedLotes(updatedLotes);
       handleConsultarFechaLote()
     } catch (error) {
-      toast.error('Error al eliminar el lote');
+      toast.error('Error al eliminar el lote', {
+        position: "bottom-center",
+      });
     }
   };
 
@@ -319,13 +323,17 @@ const EditarLote = ({ id }) => {
           );
     
           // Mostrar un toast de éxito solo después de que la solicitud haya terminado
-          toast.success('Lote Editado');
+          toast.success('Lote Editado', {
+            position: "bottom-center",
+          });
           handleConsultarTodo()
           handleConsultarFechaLote()
     
         } catch (error) {
           // Mostrar un toast de error si algo falla
-          toast.error(`Error al editar el Lote: ${error.message}`);
+          toast.error(`Error al editar el Lote: ${error.message}`, {
+            position: "bottom-center",
+          });
         }
       };
 

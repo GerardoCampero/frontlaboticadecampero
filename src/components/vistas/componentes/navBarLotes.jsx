@@ -57,12 +57,16 @@ export default function NavBarLotes() {
       setLote(initialLoteState)
       handleConsultarFechaLote()
       // Mostrar un toast de éxito solo después de que la solicitud haya terminado
-      toast.success('Lote Creado');
+      toast.success('Lote Creado', {
+        position: "bottom-center",
+      });
     } catch (error) {
       // Mostrar un toast de error si algo falla
       // console.log(error.response.data.detail, 'lotes')
       setLote(initialLoteState)
-      toast.error(`Error al crear el lote: ${error.response.data.detail}`);
+      toast.error(`Error al crear el lote: ${error.response.data.detail}`, {
+        position: "bottom-center",
+      });
     }
   };
 

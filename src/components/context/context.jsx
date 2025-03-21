@@ -76,7 +76,9 @@ export default function PageContext({ children }) {
                     const response = await axios.get(`${URL}/buscar_lotes`, { params });
                     setLotes(response.data);
                 } catch (error) {
-                    toast.error(error.response?.data?.detail)
+                    toast.error(error.response?.data?.detail, {
+                        position: "bottom-center",
+                      })
                     // console.error(error.response?.data?.detail || "Error al obtener los lotes");
                 }
             };
@@ -109,7 +111,9 @@ export default function PageContext({ children }) {
                 const response = await axios.get(`${URL}/buscar_lotes`, { params });
                 setLotes(response.data);
             } catch (error) {
-                toast.error(error.response?.data?.detail)
+                toast.error(error.response?.data?.detail, {
+                    position: "bottom-center",
+                  })
                 // console.error(error.response?.data?.detail || "Error al obtener los lotes");
             }
         }

@@ -35,7 +35,9 @@ export default function NavBarClientes() {
       const busqueda = await axios.get(`${URL}/buscar_usuario?valor=${valor}`)
       setClientes(busqueda.data)
     } catch (error) {
-      toast.error(error.response.data.detail);
+      toast.error(error.response.data.detail, {
+        position: "bottom-center",
+      });
     }
 
     
@@ -78,12 +80,16 @@ export default function NavBarClientes() {
       );
 
       // Mostrar un toast de éxito solo después de que la solicitud haya terminado
-      toast.success('Usuario Creado');
+      toast.success('Usuario Creado', {
+        position: "bottom-center",
+      });
       setCliente(clienteInicial)
       handleConsultarTodo()
     } catch (error) {
       // Mostrar un toast de error si algo falla
-      toast.error(`Error al crear el usuario: ${error.message}`);
+      toast.error(`Error al crear el usuario: ${error.message}`, {
+        position: "bottom-center",
+      });
     }
   };
 

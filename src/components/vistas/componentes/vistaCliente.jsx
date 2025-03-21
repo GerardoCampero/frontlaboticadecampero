@@ -75,7 +75,9 @@ export default function CardCliente() {
         try {
             handleConsultarFechaLote()
         } catch (error) {
-            toast.error(error.response?.data?.detail || "Error al obtener los lotes");
+            toast.error(error.response?.data?.detail || "Error al obtener los lotes", {
+                position: "bottom-center",
+              });
             
         }
     };

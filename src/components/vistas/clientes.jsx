@@ -27,13 +27,17 @@ export default function VistaClientes() {
         
         try{
             await  axios.delete(`${URL}/eliminar_usuario/${id}`)
-            toast.success('Se eliminó el usuario')
+            toast.success('Se eliminó el usuario', {
+              position: "bottom-center",
+            })
             handleConsultarTodo()
 
 
         } catch (error) {
            
-            toast.error('Error al eliminar el usuario')
+            toast.error('Error al eliminar el usuario', {
+              position: "bottom-center",
+            })
         }
 
     }
@@ -296,11 +300,15 @@ const Demo = (id) => {
           );
     
           // Mostrar un toast de éxito solo después de que la solicitud haya terminado
-          toast.success('Usuario Editado');
+          toast.success('Usuario Editado', {
+            position: "bottom-center",
+          });
           handleConsultarTodo()
         } catch (error) {
           // Mostrar un toast de error si algo falla
-          toast.error(`Error al editar el usuario: ${error.message}`);
+          toast.error(`Error al editar el usuario: ${error.message}`, {
+            position: "bottom-center",
+          });
         }
       };
 

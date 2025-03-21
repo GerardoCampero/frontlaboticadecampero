@@ -20,7 +20,7 @@ export default function NavBarClientes() {
     apellido: '',
     facebook: '',
     instagram:'',
-    telefono: '',
+    telefono: null,
     admin: false,
   }
   const [cliente, setCliente] = useState(clienteInicial);

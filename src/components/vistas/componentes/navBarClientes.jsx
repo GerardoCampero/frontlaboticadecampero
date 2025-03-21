@@ -87,7 +87,7 @@ export default function NavBarClientes() {
       handleConsultarTodo()
     } catch (error) {
       // Mostrar un toast de error si algo falla
-      toast.error(`Error al crear el usuario: ${error.message}`, {
+      toast.error(`Error al crear el usuario: ${error.response.data.detail}`, {
         position: "bottom-center",
       });
     }

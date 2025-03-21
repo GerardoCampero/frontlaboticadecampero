@@ -20,7 +20,7 @@ export default function TablaLotes({ lotes }) {
   const [currentPage, setCurrentPage] = useState(1); // Página actual
   const [paginatedLotes, setPaginatedLotes] = useState([]);
   const pageSize = 10; // Cantidad de elementos por página
-  const { URL } = usePageContext()
+  const { URL, handleConsultarFechaLote } = usePageContext()
 
  
 
@@ -30,11 +30,11 @@ export default function TablaLotes({ lotes }) {
   };
 
   // Calcular el número total de páginas
-  const totalPages = Math.ceil(lotes.length / pageSize);
+  const totalPages = Math.ceil(lotes?.length / pageSize);
 
   // useEffect para actualizar los lotes paginados al cambiar de página
   useEffect(() => {
-    const paginated = lotes.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    const paginated = lotes?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
     setPaginatedLotes(paginated);
   }, [currentPage, lotes]);
 
@@ -50,9 +50,9 @@ export default function TablaLotes({ lotes }) {
       await axios.delete(`${URL}/eliminar_lote/${id}`);
       toast.success('Se eliminó el lote seleccionado');
       // Filtrar el lote eliminado de los lotes paginados
-      const updatedLotes = paginatedLotes.filter((lote) => lote.id !== id);
+      const updatedLotes = paginatedLotes?.filter((lote) => lote.id !== id);
       setPaginatedLotes(updatedLotes);
-      window.location.reload();
+      handleConsultarFechaLote()
     } catch (error) {
       toast.error('Error al eliminar el lote');
     }
@@ -88,14 +88,14 @@ export default function TablaLotes({ lotes }) {
             borderBottom={'solid'}
             borderColor={'gray.100'}
           >
-            <b>ID</b>
+            <b>ID Usuario</b>
           </Text>
           <VStack spacing={0} h={'100%'}>
-            {paginatedLotes.map((item, index) => (
+            {paginatedLotes?.map((item, index) => (
               <MenuRoot key={index} positioning={{ placement: "botton-center" }}>
                 <MenuTrigger w={'100%'}>
                   <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
-                    {item.id}
+                    {item.usuario_id}
                   </Text>
                 </MenuTrigger>
                 <MenuContent>
@@ -125,7 +125,7 @@ export default function TablaLotes({ lotes }) {
             <b>Lote</b>
           </Text>
           <VStack spacing={0} h={'100%'}>
-            {paginatedLotes.map((item, index) => (
+            {paginatedLotes?.map((item, index) => (
               <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
                 {item.lote}
               </Text>
@@ -149,7 +149,7 @@ export default function TablaLotes({ lotes }) {
             <b>Descripción</b>
           </Text>
           <VStack spacing={0} h={'100%'}>
-            {paginatedLotes.map((item, index) => (
+            {paginatedLotes?.map((item, index) => (
               <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
                 {item.descripcion}
               </Text>
@@ -174,7 +174,7 @@ export default function TablaLotes({ lotes }) {
             <b>Cantidad</b>
           </Text>
           <VStack spacing={0} h={'100%'}>
-            {paginatedLotes.map((item, index) => (
+            {paginatedLotes?.map((item, index) => (
               <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
                 {item.cantidad}
               </Text>
@@ -198,7 +198,7 @@ export default function TablaLotes({ lotes }) {
             <b>Precio</b>
           </Text>
           <VStack spacing={0} h={'100%'}>
-            {paginatedLotes.map((item, index) => (
+            {paginatedLotes?.map((item, index) => (
               <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
                 ${formatNumber(item.precio)}
               </Text>
@@ -222,7 +222,7 @@ export default function TablaLotes({ lotes }) {
             <b>Total</b>
           </Text>
           <VStack spacing={0} h={'100%'}>
-            {paginatedLotes.map((item, index) => (
+            {paginatedLotes?.map((item, index) => (
               <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
                 ${formatNumber(item.total)}
               </Text>
@@ -244,7 +244,7 @@ export default function TablaLotes({ lotes }) {
     
         ><HiChevronLeft color='black' /></ IconButton>
         
-        <Text>{currentPage} de {totalPages}</Text>
+        <Text>{currentPage} de {totalPages ? totalPages : 0}</Text>
 
         <IconButton
            onClick={() => handlePageChange(currentPage + 1)}
@@ -256,7 +256,7 @@ export default function TablaLotes({ lotes }) {
       </ButtonGroup>
     </Box>
 
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </Box>
   );
 }
@@ -269,7 +269,7 @@ import { Field } from "@/components/ui/field";
 
 
 const EditarLote = ({ id }) => {
-    const { handleConsultarTodo, URL } = usePageContext()
+    const { handleConsultarTodo, URL, handleConsultarFechaLote } = usePageContext()
 
    
 
@@ -321,7 +321,8 @@ const EditarLote = ({ id }) => {
           // Mostrar un toast de éxito solo después de que la solicitud haya terminado
           toast.success('Lote Editado');
           handleConsultarTodo()
-          window.location.reload();
+          handleConsultarFechaLote()
+    
         } catch (error) {
           // Mostrar un toast de error si algo falla
           toast.error(`Error al editar el Lote: ${error.message}`);

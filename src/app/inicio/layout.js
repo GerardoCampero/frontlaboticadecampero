@@ -21,7 +21,10 @@ export default function LayoutInicio({ children }) {
               <HStack  justifyContent={'space-around'} >
                 <NavBarLotes/>
                 <Heading size={'5xl'}>La Botica de Campero</Heading>
-                <Button as={Link} href={`/inicio/clientes`} >Clientes</Button>
+                <HStack>
+                  <Button as={Link} href={`/inicio/clientes/lotes`} >Lotes</Button>
+                  <Button as={Link} href={`/inicio/clientes`} >Clientes</Button>
+                </HStack>
               </HStack>
               
             </Box>  

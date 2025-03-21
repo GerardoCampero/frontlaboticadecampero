@@ -22,15 +22,16 @@ import { usePageContext } from "@/components/context/context";
 
 export default function NavBarLotes() {
   const ref = useRef(null);
-  const { URL } =  usePageContext()
-  const [lote, setLote] = useState({
-    usuario_id: 0, // Esto puede venir de algún lado o ser un campo dinámico
-    lote: 0,
-    descripcion: '',
-    cantidad: 0,
-    precio: 0,
+  const { URL, handleConsultarFechaLote, } =  usePageContext()
+  const initialLoteState = {
+    usuario_id: null,
+    lote: null,
+    descripcion: null,
+    cantidad: null,
+    precio: null,
     fecha: new Date().toISOString().split('T')[0], // La fecha se genera automáticamente en formato YYYY-MM-DD
-  });
+  };
+  const [lote, setLote] = useState(initialLoteState);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -53,11 +54,15 @@ export default function NavBarLotes() {
         }
       );
 
+      setLote(initialLoteState)
+      handleConsultarFechaLote()
       // Mostrar un toast de éxito solo después de que la solicitud haya terminado
       toast.success('Lote Creado');
     } catch (error) {
       // Mostrar un toast de error si algo falla
-      toast.error(`Error al crear el lote: ${error.message}`);
+      // console.log(error.response.data.detail, 'lotes')
+      setLote(initialLoteState)
+      toast.error(`Error al crear el lote: ${error.response.data.detail}`);
     }
   };
 
@@ -76,26 +81,27 @@ export default function NavBarLotes() {
               </Dialog.Header>
               <Dialog.Body pb="4">
                 <Stack gap="4">
-                  <Field label="Usuario:">
-                    <Input
-                      name="usuario_id"
-                      value={lote.usuario_id}
-                      onChange={handleInputChange}
-                      placeholder="Id del usuario"
-                    />
-                  </Field>
                   <Field label="Lote:">
                     <Input
                       name="lote"
-                      value={lote.lote}
+                      value={lote?.lote || ''}
                       onChange={handleInputChange}
                       placeholder="Lote"
+                    />
+                  </Field>
+                  <Field label="Usuario:">
+                    <Input
+                      name="usuario_id"
+                      type="number"
+                      value={lote?.usuario_id !== null ? lote.usuario_id: ''}
+                      onChange={handleInputChange}
+                      placeholder="Id del usuario"
                     />
                   </Field>
                   <Field label="Descripción:">
                     <Input
                       name="descripcion"
-                      value={lote.descripcion}
+                      value={lote?.descripcion || ''}
                       onChange={handleInputChange}
                       placeholder="Descripción del lote"
                     />
@@ -104,7 +110,7 @@ export default function NavBarLotes() {
                     <Input
                       type="number"
                       name="cantidad"
-                      value={lote.cantidad}
+                      value={lote?.cantidad !== null ? lote.cantidad: ''}
                       onChange={handleInputChange}
                       placeholder="Cantidad"
                     />
@@ -113,7 +119,7 @@ export default function NavBarLotes() {
                     <Input
                       type="number"
                       name="precio"
-                      value={lote.precio}
+                      value={lote?.precio !== null ? lote.precio: ''}
                       onChange={handleInputChange}
                       placeholder="Precio"
                     />
@@ -134,7 +140,7 @@ export default function NavBarLotes() {
       </Dialog.Root>
 
 
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </Box>
   );
 }

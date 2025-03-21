@@ -11,16 +11,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { usePageContext } from "@/components/context/context";
 
+
 export default function NavBarClientes() {
   const { setClientes, handleConsultarTodo, URL } = usePageContext()
   const ref = useRef(null);
-  const [cliente, setCliente] = useState({
+  const clienteInicial = {
     nombre: '',
     apellido: '',
     facebook: '',
     instagram:'',
+    telefono: '',
     admin: false,
-  });
+  }
+  const [cliente, setCliente] = useState(clienteInicial);
 
 
 
@@ -40,9 +43,9 @@ export default function NavBarClientes() {
   }
 
 
-  const handleSwitchChange = () => {
-    setCliente({ ...cliente, admin: !cliente.admin });
-  };
+  // const handleSwitchChange = () => {
+  //   setCliente({ ...cliente, admin: !cliente.admin });
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -63,6 +66,7 @@ export default function NavBarClientes() {
           apellido: cliente.apellido,
           facebook: cliente.facebook,
           instagram: cliente.instagram,
+          telefono: cliente.telefono,
           admin: cliente.admin,
         },
         {
@@ -75,6 +79,7 @@ export default function NavBarClientes() {
 
       // Mostrar un toast de éxito solo después de que la solicitud haya terminado
       toast.success('Usuario Creado');
+      setCliente(clienteInicial)
       handleConsultarTodo()
     } catch (error) {
       // Mostrar un toast de error si algo falla
@@ -115,13 +120,16 @@ export default function NavBarClientes() {
               <Field label="Instagram:">
                 <Input name="instagram" value={cliente.instagram} onChange={handleInputChange} placeholder="Instagram" />
               </Field>
-              <SwitchRoot checked={cliente.admin} onCheckedChange={handleSwitchChange}>
+              <Field label="Telefono:">
+                <Input name="telefono" value={cliente.telefono} onChange={handleInputChange} placeholder="Instagram" />
+              </Field>
+              {/* <SwitchRoot checked={cliente.admin} onCheckedChange={handleSwitchChange}>
                 <SwitchHiddenInput />
                 <SwitchLabel>Admin:</SwitchLabel>
                 <SwitchControl>
                   <SwitchThumb />
                 </SwitchControl>
-              </SwitchRoot>
+              </SwitchRoot> */}
             </Stack>
           </Dialog.Body>
           <Dialog.Footer>

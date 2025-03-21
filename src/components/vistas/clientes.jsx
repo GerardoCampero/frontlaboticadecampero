@@ -1,5 +1,6 @@
 'use client'
 import { Box, Flex, VStack, Text, Input } from "@chakra-ui/react";
+import { useEffect } from "react";
 import NavBarClientes from "./componentes/navBarClientes";
 import { usePageContext } from "../context/context";
 import axios from "axios";
@@ -20,7 +21,7 @@ import { useState } from "react";
 
 
 export default function VistaClientes() {
-    const { clientes, handleConsultarTodo, URL } = usePageContext()
+    const { clientes, handleConsultarTodo, URL, setClienteID, clienteID } = usePageContext()
 
     const deleteUsuario = async (id) => {
         
@@ -36,6 +37,20 @@ export default function VistaClientes() {
         }
 
     }
+
+    const handleVerCliente = (id) => {
+      // Establece el ID del cliente
+      console.log(id, 'cliente')
+      setClienteID(id);
+      window.location.href = `/inicio/clientes/lotes`;
+    };
+    
+    // useEffect(() => {
+    //   if (clienteID) {
+    //     // Cuando el estado clienteID cambie, redirige
+    //     window.location.href = `/inicio/clientes/lotes`;
+    //   }
+    // }, [clienteID]);
 
 
 
@@ -88,7 +103,7 @@ export default function VistaClientes() {
                                 <MenuContent>
                                     <VStack>
                                         {/* <MenuItem value="new-txt2">Ver usuario</MenuItem> */}
-                                        <Button variant={'ghost'} size={'xs'} as={Link} href={`/inicio/clientes/${cliente.id}`}>Ver Cliente</Button>
+                                        <Button variant={'ghost'} size={'xs'} onClick={() => (handleVerCliente(cliente.id))}>Ver Cliente</Button>
                                         {/* <MenuItem value="new-txt" > */}
                                         <Demo id={cliente.id}/>
                                         {/* </MenuItem> */}
@@ -163,7 +178,7 @@ export default function VistaClientes() {
                 </VStack>
               </Box>
                 
-              <Box flex={1}>
+              <Box flex={1} borderRight={'solid'} borderColor={'gray.100'} bgColor={'gray.50'}>
                 <Text 
                   bgColor={'gray.50'} 
                   position={'sticky'} 
@@ -185,6 +200,33 @@ export default function VistaClientes() {
                     return (
                       <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
                         {cliente.instagram ? cliente.instagram : 'N/D'}
+                      </Text>
+                    )
+                  })}
+                </VStack>
+              </Box>
+              <Box flex={1}>
+                <Text 
+                  bgColor={'gray.50'} 
+                  position={'sticky'} 
+                  top={0} 
+                  zIndex={2} 
+                  mb={2} 
+                  padding={2.5} 
+                  textAlign={'center'} 
+                  borderBottom={'solid'} 
+                  borderColor={'gray.100'}
+                >
+                  <b>Telefono</b>
+                </Text>
+                <VStack 
+                  spacing={0} 
+                  h={'100%'} // Ajusta el tamaño del VStack para que ocupe todo el espacio
+                >
+                  {clientes && clientes.map((cliente, index) => {
+                    return (
+                      <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
+                        {cliente.telefono ? cliente.telefono : 'N/D'}
                       </Text>
                     )
                   })}

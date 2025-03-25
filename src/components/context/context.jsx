@@ -40,7 +40,8 @@ export default function PageContext({ children }) {
             const consultarTodo = async () => {
                 try {
                     const clientesEnd = await axios.get(`${URL}/consultar_usuarios`)
-                    setClientes(clientesEnd.data)
+                    const clientesOrdenados = clientesEnd.data.sort((a, b) => a.id - b.id)
+                    setClientes(clientesOrdenados)
                 } catch (error) {
                     console.error("Error al realizar la consulta", error)
                 }
@@ -79,6 +80,7 @@ export default function PageContext({ children }) {
                     toast.error(error.response?.data?.detail, {
                         position: "bottom-center",
                       })
+                    setLotes(null);
                     // console.error(error.response?.data?.detail || "Error al obtener los lotes");
                 }
             };
@@ -91,7 +93,8 @@ export default function PageContext({ children }) {
     const handleConsultarTodo = async () => {
         try {
             const clientesEnd = await axios.get(`${URL}/consultar_usuarios`)
-            setClientes(clientesEnd.data)
+            const clientesOrdenados = clientesEnd.data.sort((a, b) => a.id - b.id)
+            setClientes(clientesOrdenados)
         } catch (error) {
             console.error("Error al realizar la consulta", error)
         }
@@ -100,6 +103,7 @@ export default function PageContext({ children }) {
     const handleConsultarFechaLote = async () => {
 
         if(fechaLote) {
+            console.log(fechaLote, 'fechaLote')
             try {
                 const params = { fecha: fechaLote };
             
@@ -107,14 +111,15 @@ export default function PageContext({ children }) {
                 if (clienteID !== undefined) {
                     params.usuario_id = clienteID;
                 }
-            
+                console.log(params, 'params')
                 const response = await axios.get(`${URL}/buscar_lotes`, { params });
                 setLotes(response.data);
             } catch (error) {
-                toast.error(error.response?.data?.detail, {
-                    position: "bottom-center",
-                  })
-                // console.error(error.response?.data?.detail || "Error al obtener los lotes");
+                // toast.error(error.response?.data?.detail, {
+                //     position: "bottom-center",
+                //   })
+                setLotes(null);
+                console.log(error.response?.data?.detail || "Error al obtener los lotes");
             }
         }
     };

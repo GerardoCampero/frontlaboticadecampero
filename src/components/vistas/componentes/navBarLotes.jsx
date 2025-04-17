@@ -20,17 +20,35 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { usePageContext } from "@/components/context/context";
 
+
+
+
 export default function NavBarLotes() {
   const ref = useRef(null);
   const { URL, handleConsultarFechaLote, } =  usePageContext()
+
+
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Argentina/Buenos_Aires',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  });
+  
+  const parts = formatter.formatToParts(new Date());
+  const dateObj = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  const fechaBuenosAires = `${dateObj.year}-${dateObj.month}-${dateObj.day}`;
+
   const initialLoteState = {
     usuario_id: null,
     lote: null,
     descripcion: null,
     cantidad: null,
     precio: null,
-    fecha: new Date().toISOString().split('T')[0], // La fecha se genera automáticamente en formato YYYY-MM-DD
+    fecha: fechaBuenosAires,
+    // fecha: new Date().toISOString().split('T')[0], // La fecha se genera automáticamente en formato YYYY-MM-DD
   };
+  console.log(initialLoteState,)
   const [lote, setLote] = useState(initialLoteState);
 
   const handleInputChange = (e) => {
@@ -42,6 +60,7 @@ export default function NavBarLotes() {
   };
 
   const handleSubmit = async () => {
+    console.log(lote, 'lote')
     try {
       const response = await axios.post(
         `${URL}/crear_lote`,
@@ -64,7 +83,7 @@ export default function NavBarLotes() {
       // Mostrar un toast de error si algo falla
       // console.log(error.response.data.detail, 'lotes')
       setLote(initialLoteState)
-      toast.error(`Error al crear el lote: ${error.response.data.detail}`, {
+      toast.error(`Error al crear el lote: ${error.response?.data?.detail}`, {
         position: "bottom-center",
       });
     }

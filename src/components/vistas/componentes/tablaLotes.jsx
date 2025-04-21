@@ -99,21 +99,45 @@ export default function TablaLotes({ lotes }) {
             <b>ID Usuario</b>
           </Text>
           <VStack spacing={0} h={'100%'}>
-            {paginatedLotes?.map((item, index) => (
-              <MenuRoot key={index} positioning={{ placement: "botton-center" }}>
-                <MenuTrigger w={'100%'}>
-                  <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
-                    {item.usuario_id}
-                  </Text>
-                </MenuTrigger>
-                <MenuContent>
-                  <VStack>
-                    <EditarLote id={item.id} fecha={item.fecha} onClose={handleCerrarMenu}/>
-                    <Button variant={'ghost'} size={'xs'} onClick={() => {handleEliminarLote(item.id); handleCerrarMenu()}}>Eliminar</Button>
-                  </VStack>
-                </MenuContent>
-              </MenuRoot>
-            ))}
+            {paginatedLotes?.map((item, index) => {
+              const [open, setOpen] = useState(false); // <- estado individual por cada menú
+
+              const handleCerrarMenu = () => setOpen(false);
+
+              return (
+                <MenuRoot
+                  key={item.id}
+                  open={open}
+                  onOpenChange={setOpen}
+                  positioning={{ placement: "bottom-center" }}
+                >
+                  <MenuTrigger w="100%">
+                    <Text w="100%" textAlign="center" borderBottom="solid" borderColor="gray.100">
+                      {item.usuario_id}
+                    </Text>
+                  </MenuTrigger>
+                  <MenuContent>
+                    <VStack>
+                      <EditarLote
+                        id={item.id}
+                        fecha={item.fecha}
+                        onClose={handleCerrarMenu} // Cierra el menú si se edita
+                      />
+                      <Button
+                        variant="ghost"
+                        size="xs"
+                        onClick={() => {
+                          handleEliminarLote(item.id);
+                          handleCerrarMenu(); // Cierra el menú si se elimina
+                        }}
+                      >
+                        Eliminar
+                      </Button>
+                    </VStack>
+                  </MenuContent>
+                </MenuRoot>
+              );
+            })}
           </VStack>
         </Box>
 

@@ -21,9 +21,9 @@ export default function TablaLotes({ lotes }) {
   const [paginatedLotes, setPaginatedLotes] = useState([]);
   const pageSize = 10; // Cantidad de elementos por página
   const { URL, handleConsultarFechaLote } = usePageContext()
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
-  const handleCerrarMenu = () => setOpen(false);
+  // const handleCerrarMenu = () => setOpen(false);
 
  
 

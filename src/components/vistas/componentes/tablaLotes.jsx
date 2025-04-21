@@ -47,6 +47,7 @@ export default function TablaLotes({ lotes }) {
 
   const handleEliminarLote = async (id) => {
     try {
+      console.log('Se eliminó el lote', id)
       await axios.delete(`${URL}/eliminar_lote/${id}`);
       toast.success('Se eliminó el lote seleccionado', {
         position: "bottom-center",

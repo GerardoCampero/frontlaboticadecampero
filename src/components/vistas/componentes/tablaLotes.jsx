@@ -280,7 +280,7 @@ const EditarLote = ({ id, fecha }) => {
     descripcion: '',
     cantidad: '',
     precio: '',
-    fecha: fecha,  // Inicializamos la fecha con el valor actual
+    fecha: fecha ? new Date(fecha) : new Date(),  // Inicializamos la fecha con el valor actual
   });
 
   const handleInputChange = (e) => {

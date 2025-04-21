@@ -21,10 +21,7 @@ export default function TablaLotes({ lotes }) {
   const [paginatedLotes, setPaginatedLotes] = useState([]);
   const pageSize = 10; // Cantidad de elementos por página
   const { URL, handleConsultarFechaLote } = usePageContext()
-  const [openMenuId, setOpenMenuId] = useState(null);
-
-  const handleAbrirMenu = (id) => setOpenMenuId(id);
-  const handleCerrarMenu = () => setOpenMenuId(null);
+  
 
  
 
@@ -100,47 +97,21 @@ export default function TablaLotes({ lotes }) {
             <b>ID Usuario</b>
           </Text>
           <VStack spacing={0} h={'100%'}>
-            {paginatedLotes?.map((item, index) => {
-              const [open, setOpen] = useState(false); // <- estado individual por cada menú
-
-              const handleCerrarMenu = () => setOpen(false);
-
-              return (
-                <MenuRoot
-                  key={item.id}
-                  open={openMenuId === item.id}
-                  onOpenChange={(isOpen) => setOpenMenuId(isOpen ? item.id : null)}
-                  positioning={{ placement: "bottom-center" }}
-                >
-                  <MenuTrigger w="100%">
-                    <Text
-                      w="100%"
-                      textAlign="center"
-                      borderBottom="solid"
-                      borderColor="gray.100"
-                      onClick={() => handleAbrirMenu(item.id)}
-                    >
-                      {item.usuario_id}
-                    </Text>
-                  </MenuTrigger>
-                  <MenuContent>
-                    <VStack>
-                      <EditarLote id={item.id} fecha={item.fecha} onClose={handleCerrarMenu} />
-                      <Button
-                        variant="ghost"
-                        size="xs"
-                        onClick={() => {
-                          handleEliminarLote(item.id);
-                          handleCerrarMenu();
-                        }}
-                      >
-                        Eliminar
-                      </Button>
-                    </VStack>
-                  </MenuContent>
-                </MenuRoot>
-              );
-            })}
+            {paginatedLotes?.map((item, index) => (
+              <MenuRoot key={index} positioning={{ placement: "botton-center" }}>
+                <MenuTrigger w={'100%'}>
+                  <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
+                    {item.usuario_id}
+                  </Text>
+                </MenuTrigger>
+                <MenuContent>
+                  <VStack>
+                    <EditarLote id={item.id} fecha={item.fecha}/>
+                    <Button variant={'ghost'} size={'xs'} onClick={() => handleEliminarLote(item.id)}>Eliminar</Button>
+                  </VStack>
+                </MenuContent>
+              </MenuRoot>
+            ))}
           </VStack>
         </Box>
 

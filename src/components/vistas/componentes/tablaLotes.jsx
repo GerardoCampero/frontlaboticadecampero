@@ -98,7 +98,7 @@ export default function TablaLotes({ lotes }) {
           </Text>
           <VStack spacing={0} h={'100%'}>
             {paginatedLotes?.map((item, index) => (
-              <MenuRoot key={index} positioning={{ placement: "botton-center" }}>
+              <MenuRoot key={index} positioning={{ placement: "botton-center" }} closeOnSelect={true}>
                 <MenuTrigger w={'100%'}>
                   <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
                     {item.usuario_id}

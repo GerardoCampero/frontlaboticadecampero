@@ -48,7 +48,7 @@ export default function NavBarLotes() {
     fecha: fechaBuenosAires,
     // fecha: new Date().toISOString().split('T')[0], // La fecha se genera automáticamente en formato YYYY-MM-DD
   };
-  console.log(initialLoteState,)
+  console.log(initialLoteState.fecha, 'initialLoteState')
   const [lote, setLote] = useState(initialLoteState);
 
   const handleInputChange = (e) => {

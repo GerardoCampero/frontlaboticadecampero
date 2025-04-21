@@ -105,7 +105,7 @@ export default function TablaLotes({ lotes }) {
                 </MenuTrigger>
                 <MenuContent>
                   <VStack>
-                    <EditarLote id={item.id}/>
+                    <EditarLote id={item.id} fecha={item.fecha}/>
                     <Button variant={'ghost'} size={'xs'} onClick={() => handleEliminarLote(item.id)}>Eliminar</Button>
                   </VStack>
                 </MenuContent>
@@ -272,7 +272,7 @@ import { Field } from "@/components/ui/field";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const EditarLote = ({ id }) => {
+const EditarLote = ({ id, fecha }) => {
   const { handleConsultarTodo, URL, handleConsultarFechaLote } = usePageContext();
 
   const [lote, setLote] = useState({
@@ -401,7 +401,7 @@ const EditarLote = ({ id }) => {
                 <Field label="Fecha:">
                   <Box border={'solid'} borderRadius={'md'} borderWidth={'2px'} borderColor={'gray.200'}>
                   <DatePicker
-                    selected={lote.fecha}
+                    selected={fecha}
                     onChange={handleDateChange}
                     dateFormat="dd/MM/yyyy"
                     placeholderText="Seleccione la fecha"

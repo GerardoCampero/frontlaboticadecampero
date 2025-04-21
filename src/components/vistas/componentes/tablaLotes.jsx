@@ -21,6 +21,9 @@ export default function TablaLotes({ lotes }) {
   const [paginatedLotes, setPaginatedLotes] = useState([]);
   const pageSize = 10; // Cantidad de elementos por página
   const { URL, handleConsultarFechaLote } = usePageContext()
+  const [open, setOpen] = useState(false);
+
+  const handleCerrarMenu = () => setOpen(false);
 
  
 
@@ -105,8 +108,8 @@ export default function TablaLotes({ lotes }) {
                 </MenuTrigger>
                 <MenuContent>
                   <VStack>
-                    <EditarLote id={item.id} fecha={item.fecha}/>
-                    <Button variant={'ghost'} size={'xs'} onClick={() => handleEliminarLote(item.id)}>Eliminar</Button>
+                    <EditarLote id={item.id} fecha={item.fecha} onClose={handleCerrarMenu}/>
+                    <Button variant={'ghost'} size={'xs'} onClick={() => {handleEliminarLote(item.id); handleCerrarMenu()}}>Eliminar</Button>
                   </VStack>
                 </MenuContent>
               </MenuRoot>

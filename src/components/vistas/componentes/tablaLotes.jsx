@@ -323,7 +323,7 @@ const EditarLote = ({ id }) => {
       loteEditado.fecha = formatDate(lote.fecha);
     }
 
-    console.log(loteEditado, 'loteEditado');
+    console.log(loteEditado, 'loteEditado', id);
 
     try {
       const response = await axios.put(

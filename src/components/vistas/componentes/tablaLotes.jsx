@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react';
-import { ButtonGroup, IconButton, Pagination } from "@chakra-ui/react";
+import { ButtonGroup, IconButton, Pagination, useMenuContext } from "@chakra-ui/react";
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 import { useState, useEffect } from 'react';
 import {
@@ -21,6 +21,7 @@ export default function TablaLotes({ lotes }) {
   const [paginatedLotes, setPaginatedLotes] = useState([]);
   const pageSize = 10; // Cantidad de elementos por página
   const { URL, handleConsultarFechaLote } = usePageContext()
+  const { onClose } = useMenuContext()
   
 
  
@@ -107,8 +108,8 @@ export default function TablaLotes({ lotes }) {
                 
                 <MenuContent>
                   <VStack>
-                    <EditarLote id={item.id} fecha={item.fecha}/>
-                    <Button variant={'ghost'} size={'xs'} onClick={() => handleEliminarLote(item.id)}>Eliminar</Button>
+                    <EditarLote id={item.id} fecha={item.fecha} onClick={() => onClose()}/>
+                    <Button variant={'ghost'} size={'xs'} onClick={() => {handleEliminarLote(item.id); onClose()}}>Eliminar</Button>
                   </VStack>
                 </MenuContent>
               </MenuRoot>

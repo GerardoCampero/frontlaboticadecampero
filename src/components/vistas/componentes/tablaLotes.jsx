@@ -103,13 +103,14 @@ export default function TablaLotes({ lotes }) {
                   <Text key={index} w={'100%'} textAlign={'center'} borderBottom={'solid'} borderColor={'gray.100'}>
                     {item.usuario_id}
                   </Text>
-                </MenuTrigger>
+                
                 <MenuContent>
                   <VStack>
                     <EditarLote id={item.id} fecha={item.fecha}/>
                     <Button variant={'ghost'} size={'xs'} onClick={() => handleEliminarLote(item.id)}>Eliminar</Button>
                   </VStack>
                 </MenuContent>
+                </MenuTrigger>
               </MenuRoot>
             ))}
           </VStack>

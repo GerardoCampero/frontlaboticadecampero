@@ -279,6 +279,7 @@ const EditarLote = ({ id, fecha }) => {
 
   const [lote, setLote] = useState({
     lote: '',
+    usuario_id: '',
     descripcion: '',
     cantidad: '',
     precio: '',
@@ -372,6 +373,14 @@ const EditarLote = ({ id, fecha }) => {
                     value={lote.lote}
                     onChange={handleInputChange}
                     placeholder="Lote"
+                  />
+                </Field>
+                <Field label="ID Usuario:">
+                <Input
+                    name="usuario_id"
+                    value={lote.usuario_id}
+                    onChange={handleInputChange}
+                    placeholder="ID Usuario"
                   />
                 </Field>
                 <Field label="Descripción:">

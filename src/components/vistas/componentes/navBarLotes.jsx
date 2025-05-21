@@ -23,6 +23,7 @@ import { usePageContext } from "@/components/context/context";
 
 
 
+
 export default function NavBarLotes() {
   const ref = useRef(null);
   const { URL, handleConsultarFechaLote, } =  usePageContext()

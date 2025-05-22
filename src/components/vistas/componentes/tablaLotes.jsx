@@ -276,6 +276,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const EditarLote = ({ id, fecha }) => {
   const { handleConsultarTodo, URL, handleConsultarFechaLote } = usePageContext();
+  const [fechaSeleccionada, setFechaSeleccionada] = useState()
 
   const [lote, setLote] = useState({
     lote: '',
@@ -295,6 +296,7 @@ const EditarLote = ({ id, fecha }) => {
   };
 
   const handleDateChange = (date) => {
+    setFechaSeleccionada(date)
     setLote((prevstate) => ({
       ...prevstate,
       fecha: date,
@@ -412,7 +414,7 @@ const EditarLote = ({ id, fecha }) => {
                 <Field label="Fecha:">
                   <Box border={'solid'} borderRadius={'md'} borderWidth={'2px'} borderColor={'gray.200'}>
                   <DatePicker
-                    selected={fecha}
+                    selected={fechaSeleccionada}
                     onChange={handleDateChange}
                     dateFormat="dd/MM/yyyy"
                     placeholderText="Seleccione la fecha"
